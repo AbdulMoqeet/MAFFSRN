@@ -32,6 +32,17 @@ def activation(act_type, inplace=True, neg_slope=0.05, n_prelu=1):
         raise NotImplementedError('activation layer [{:s}] is not found'.format(act_type))
     return layer
 
+def pad(pad_type, padding): 
+    pad_type = pad_type.lower()
+    if padding == 0:
+        return None
+    if pad_type == 'reflect':
+        layer = nn.ReflectionPad2d(padding)
+    elif pad_type == 'replicate':
+        layer = nn.ReplicationPad2d(padding)
+    else:
+        raise NotImplementedError('padding layer [%s] is not implemented' % pad_type)
+    return layer
 
 def sequential(*args):
     if len(args) == 1:
